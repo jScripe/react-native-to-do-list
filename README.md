@@ -5,7 +5,7 @@ Covered topics:
 3. React Hooks
 4. React-Navigation
 5. Thunk
-6. ersist
+6. Persist
 7. Native module:
   * write simple view for each platform (as separate library)
   * Cache images
