@@ -12,8 +12,9 @@ Covered topics:
   * Take picture
 8. [Firebase sync]
 
+/////////////////////////////////////////////////////////////////
 
-Concept:
+Concept: /n
 App for managing TODOs for Android & iOS.
   * Application persists state between relaunches
   * User can see all TODOs in list
