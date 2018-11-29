@@ -6,11 +6,11 @@ Covered topics:
 4. React-Navigation
 5. Thunk
 6. ersist
-7. Native module
+7. Native module:
   * write simple view for each platform (as separate library)
   * Cache images
   * Take picture
-8.[Firebase sync]
+8. [Firebase sync]
 
 
 Concept:
