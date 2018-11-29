@@ -10,11 +10,11 @@ Covered topics:
   * write simple view for each platform (as separate library)
   * Cache images
   * Take picture
-8. [Firebase sync]
+8. [Firebase sync]    
 
-/////////////////////////////////////////////////////////////////
 
-Concept: /n
+
+Concept:  
 App for managing TODOs for Android & iOS.
   * Application persists state between relaunches
   * User can see all TODOs in list
