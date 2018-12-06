@@ -1,29 +1,23 @@
 import React from "react";
-import {Component} from "react";
-import {StyleSheet, Text, View} from "react-native";
+import { View } from "react-native";
+import reducers from "./reducers";
+import { Provider, connect } from "react-redux";
+import { createStore, applyMiddleware, compose} from "redux";
+import thunkMiddleware from "redux-thunk";
 
-
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Azaza</Text>
-      </View>
-    );
-  }
+function configureStore(initialState: any) {
+  const extender = compose(
+    applyMiddleware(thunkMiddleware)
+  );
+  return createStore(reducers, initialState, extender);
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-});
+const store = configureStore({});
+
+const App = () => (
+  <Provider store={ store }>
+    <View>123</View>
+  </Provider>
+);
+
+export default App;
