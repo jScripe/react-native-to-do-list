@@ -9,13 +9,14 @@ import { toDoListStyles } from "../styles/index";
 
 
 interface ToDoListContainerProps {
-    tasks: object[];
+    tasks: Object[];
     text: string;
 }
 
 type ToDoListContainerPropsJoinedProps = ToDoListContainerProps & {
     addTaskInToDoList: (text: string) => any;
     changeTextInTextInput: (text: string) => any;
+    deleteTaskInToDoList: (index: number) => any;
 };
 
 class ToDoListContainer extends Component<ToDoListContainerPropsJoinedProps> {
@@ -47,7 +48,7 @@ class ToDoListContainer extends Component<ToDoListContainerPropsJoinedProps> {
     }
 
     handleDeleteTask(index: number) {
-        // this.props.deleteTaskInToDoList(index);
+        this.props.deleteTaskInToDoList(index);
     }
 }
 

@@ -14,7 +14,15 @@ const changeTextInTextInput = (text: string) => {
     }
 }
 
+const deleteTaskInToDoList = (index: number) => {
+    return {
+        type: actionTypes.DELETE_TASK,
+        index: index
+    }
+}
+
 export {
     addTaskInToDoList,
     changeTextInTextInput,
+    deleteTaskInToDoList
 }
