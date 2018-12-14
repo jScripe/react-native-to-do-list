@@ -4,6 +4,7 @@ import { toDoListStyles } from "../styles";
 
 interface Props {
     tasks: object[]
+    deleteTask: (index: number) => any;
 }
 
 const FlatListForTask = (props: Props) => {
@@ -11,7 +12,7 @@ const FlatListForTask = (props: Props) => {
     return (
         <FlatList
             data={props.tasks}
-            renderItem={({item}) => (
+            renderItem={({item, index}) => (
                 <View style={toDoListStyles.flatListItem}>
                     <Text style={toDoListStyles.flatListItemText}>{item.title}</Text>
                     <Button title="X" onPress={() => {}} />

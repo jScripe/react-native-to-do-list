@@ -19,6 +19,7 @@ interface Props {
 type JoinedProps = Props & {actions: {
         addTaskInToDoList: (task: string) => any;
         changeTextInTextInput: (text: string) => any;
+        deleteTaskInToDoList: (index: number) => any;
     }
 }
 
@@ -27,7 +28,7 @@ class ToDoListContainer extends Component<JoinedProps> {
     public render() {
         return (
             <View style={toDoListStyles.toDoWrapper}>
-                <FlatListForTask tasks={this.props.tasks}/>
+                <FlatListForTask tasks={this.props.tasks} deleteTask={this.handleDeleteTask.bind(this)}/>
                 <TextInputForTask
                     addTask={this.handleAddTaskInToDo.bind(this)}
                     changeText={this.handleChangeTextInTextInput.bind(this)}
@@ -49,6 +50,10 @@ class ToDoListContainer extends Component<JoinedProps> {
     handleChangeTextInTextInput(text: string) {
         this.props.actions.changeTextInTextInput(text);
     }
+
+    handleDeleteTask(index: number) {
+        this.props.actions.deleteTaskInToDoList(index);
+    }
 }
 
 function mapStateToProps(state: any) {
@@ -61,7 +66,7 @@ function mapStateToProps(state: any) {
 const mapDispatchToProps = (dispatch: any) => ({
     actions: bindActionCreators({
         addTaskInToDoList,
-        changeTextInTextInput
+        changeTextInTextInput,
     }, dispatch)
 });
 
