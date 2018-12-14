@@ -1,8 +1,6 @@
 import { combineReducers } from "redux";
-import addTask from "./addTaskReducer";
-import changeText from "./changeTextReducer";
+import { toDoListReducers } from "./toDoListReducer";
 
 export default combineReducers({
-    addTask,
-    changeText,
+    toDoListReducers
 })

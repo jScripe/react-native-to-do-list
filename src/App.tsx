@@ -1,7 +1,6 @@
 import React from "react";
-import { View } from "react-native";
 import reducers from "./reducers";
-import { Provider, connect } from "react-redux";
+import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose} from "redux";
 import thunkMiddleware from "redux-thunk";
 import AppContainer from "./containers/appConatainer";

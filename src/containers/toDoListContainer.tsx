@@ -4,26 +4,21 @@ import { Component } from "react";
 import TextInputForTask from "../components/textInputForTask";
 import FlatListForTask from "../components/flatListForTask";
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { actions } from "../actions";
 import { toDoListStyles } from "../styles/index";
 
-import addTaskInToDoList from "../actions/addTaskActionCreator";
-import changeTextInTextInput from "../actions/changeTextActionCreator";
 
-
-interface Props {
+interface ToDoListContainerProps {
     tasks: object[];
     text: string;
 }
 
-type JoinedProps = Props & {actions: {
-        addTaskInToDoList: (task: string) => any;
-        changeTextInTextInput: (text: string) => any;
-        deleteTaskInToDoList: (index: number) => any;
-    }
-}
+type ToDoListContainerPropsJoinedProps = ToDoListContainerProps & {
+    addTaskInToDoList: (text: string) => any;
+    changeTextInTextInput: (text: string) => any;
+};
 
-class ToDoListContainer extends Component<JoinedProps> {
+class ToDoListContainer extends Component<ToDoListContainerPropsJoinedProps> {
 
     public render() {
         return (
@@ -40,36 +35,27 @@ class ToDoListContainer extends Component<JoinedProps> {
     
     handleAddTaskInToDo(text: string) {
         if(this.props.text) {
-            this.props.actions.addTaskInToDoList(text);
-            this.props.actions.changeTextInTextInput("");
+            this.props.addTaskInToDoList(text);
+            this.props.changeTextInTextInput("");
         } else {
             Alert.alert("The input field cannot be empty")
         }
     }
 
     handleChangeTextInTextInput(text: string) {
-        this.props.actions.changeTextInTextInput(text);
+        this.props.changeTextInTextInput(text);
     }
 
     handleDeleteTask(index: number) {
-        this.props.actions.deleteTaskInToDoList(index);
+        // this.props.deleteTaskInToDoList(index);
     }
 }
 
 function mapStateToProps(state: any) {
     return {
-        tasks: state.addTask.tasks,
-        text: state.changeText.text
+        tasks: state.toDoListReducers.tasks,
+        text: state.toDoListReducers.text
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => ({
-    actions: bindActionCreators({
-        addTaskInToDoList,
-        changeTextInTextInput,
-    }, dispatch)
-});
-
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(ToDoListContainer);
+export default connect(mapStateToProps, actions)(ToDoListContainer);
