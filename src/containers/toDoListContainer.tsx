@@ -11,6 +11,7 @@ import { toDoListStyles } from "../styles/index";
 interface ToDoListContainerProps {
     tasks: Object[];
     text: string;
+    navigation: any;
 }
 
 type ToDoListContainerJoinedProps = ToDoListContainerProps & {

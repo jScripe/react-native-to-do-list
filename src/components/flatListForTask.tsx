@@ -16,7 +16,6 @@ const FlatListForTask = (props: Props) => {
                 <View style={toDoListStyles.flatListItem}>
                     <Text style={toDoListStyles.flatListItemText}>{item.title}</Text>
                     <Button title="X" onPress={() => {
-                        console.log(1111111111111111111, index);
                         props.deleteTask(index);
                     }} />
                 </View>
