@@ -1,7 +1,6 @@
 import { handleActions } from "redux-actions";
 import { handlerWrapper } from "../utils/reducerUtils";
 import actionTypes from "../actions/types/actionTypes";
-import { string, func } from "prop-types";
 import { actions } from "../actions";
 
 interface ToDoListStore {

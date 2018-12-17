@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Alert } from "react-native";
+import { View, Alert, Button } from "react-native";
 import { Component } from "react";
 import TextInputForTask from "../components/textInputForTask";
 import FlatListForTask from "../components/flatListForTask";
@@ -13,13 +13,13 @@ interface ToDoListContainerProps {
     text: string;
 }
 
-type ToDoListContainerPropsJoinedProps = ToDoListContainerProps & {
+type ToDoListContainerJoinedProps = ToDoListContainerProps & {
     addTaskInToDoList: (text: string) => any;
     changeTextInTextInput: (text: string) => any;
     deleteTaskInToDoList: (index: number) => any;
 };
 
-class ToDoListContainer extends Component<ToDoListContainerPropsJoinedProps> {
+class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
 
     public render() {
         return (
@@ -30,6 +30,10 @@ class ToDoListContainer extends Component<ToDoListContainerPropsJoinedProps> {
                     changeText={this.handleChangeTextInTextInput.bind(this)}
                     textInInput={this.props.text}
                 />
+                <Button
+                    title="test button"
+                    onPress={() => {}}
+                ></Button>
             </View>
         )
     }
