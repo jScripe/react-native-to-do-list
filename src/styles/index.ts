@@ -21,11 +21,17 @@ const toDoListStyles = StyleSheet.create({
     flatListItem: {
         flex: 1,
         flexDirection: "row",
-        justifyContent: "space-between",
+        alignItems: "center",
         margin: 6
     },
     flatListItemText: {
-        fontSize: 24
+        fontSize: 24,
+        paddingLeft: 10,
+        paddingRight: 5,
+        marginRight: 40
+    },
+    flatListIconDelete: {
+        marginLeft: "auto"
     }
 })
 

@@ -7,8 +7,26 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 
 const MainNavigator = createStackNavigator(
     {
-        Home: ToDoListContainer,
-        Description: DescriptionTaskContainer
+        Home: {
+            screen: ToDoListContainer,
+            navigationOptions: {
+                title: "To do",
+                headerStyle: {
+                    backgroundColor: "blue"
+                },
+                headerTintColor: '#fff',
+            }
+        },
+        Description: {
+            screen: DescriptionTaskContainer,
+            navigationOptions: {
+                title: "Description task",
+                headerStyle: {
+                    backgroundColor: "blue"
+                },
+                headerTintColor: '#fff',
+            }
+        }
     },
     {
         initialRouteName: 'Home'

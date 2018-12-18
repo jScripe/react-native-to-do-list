@@ -25,16 +25,12 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
     public render() {
         return (
             <View style={toDoListStyles.toDoWrapper}>
-                <FlatListForTask tasks={this.props.tasks} deleteTask={this.handleDeleteTask.bind(this)}/>
+                <FlatListForTask tasks={this.props.tasks} deleteTask={this.handleDeleteTask.bind(this)} clickOnTask={() => this.props.navigation.push("Description")}/>
                 <TextInputForTask
                     addTask={this.handleAddTaskInToDo.bind(this)}
                     changeText={this.handleChangeTextInTextInput.bind(this)}
                     textInInput={this.props.text}
                 />
-                <Button
-                    title="test button"
-                    onPress={() => {}}
-                ></Button>
             </View>
         )
     }
