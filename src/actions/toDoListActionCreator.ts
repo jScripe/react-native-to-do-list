@@ -14,15 +14,23 @@ const changeTextInTextInput = (text: string) => {
     }
 }
 
-const deleteTaskInToDoList = (index: number) => {
+const deleteTaskInToDoList = (id: string) => {
     return {
         type: actionTypes.DELETE_TASK,
-        index: index
+        id: id
+    }
+}
+
+const setTaskId = (id: string) => {
+    return {
+        type: actionTypes.SET_ID,
+        taskId: id
     }
 }
 
 export {
     addTaskInToDoList,
     changeTextInTextInput,
-    deleteTaskInToDoList
+    deleteTaskInToDoList,
+    setTaskId
 }

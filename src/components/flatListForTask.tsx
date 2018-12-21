@@ -4,8 +4,8 @@ import { toDoListStyles } from "../styles";
 
 interface Props {
     tasks: Object[]
-    deleteTask: (index: number) => any;
-    clickOnTask: () => any;
+    deleteTask: (id: string) => any;
+    clickOnTask: (id: string) => any;
 }
 
 const FlatListForTask = (props: Props) => {
@@ -13,17 +13,19 @@ const FlatListForTask = (props: Props) => {
     return (
         <FlatList
             data={props.tasks}
-            renderItem={({item, index}) => (
+            renderItem={({item}) => (
                 <View style={toDoListStyles.flatListItem}>
                     <View>
                         <Text>[v]</Text>
                     </View>
-                    <TouchableOpacity onPress={props.clickOnTask}>
+                    <TouchableOpacity onPress={() => {
+                        props.clickOnTask(item.id);
+                    }}>
                         <Text style={toDoListStyles.flatListItemText}>{item.title}</Text>
                     </TouchableOpacity>
                     <View style={toDoListStyles.flatListIconDelete}>
                         <Button title="X" onPress={() => {
-                            props.deleteTask(index);
+                            props.deleteTask(item.id);
                         }} />
                     </View>
                 </View>

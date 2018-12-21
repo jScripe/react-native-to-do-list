@@ -17,7 +17,8 @@ interface ToDoListContainerProps {
 type ToDoListContainerJoinedProps = ToDoListContainerProps & {
     addTaskInToDoList: (text: string) => any;
     changeTextInTextInput: (text: string) => any;
-    deleteTaskInToDoList: (index: number) => any;
+    deleteTaskInToDoList: (id: string) => any;
+    setTaskId: (id: string) => any;
 };
 
 class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
@@ -25,7 +26,7 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
     public render() {
         return (
             <View style={toDoListStyles.toDoWrapper}>
-                <FlatListForTask tasks={this.props.tasks} deleteTask={this.handleDeleteTask.bind(this)} clickOnTask={() => this.props.navigation.push("Description")}/>
+                <FlatListForTask tasks={this.props.tasks} deleteTask={this.handleDeleteTask.bind(this)} clickOnTask={this.handleClickOnTask.bind(this)}/>
                 <TextInputForTask
                     addTask={this.handleAddTaskInToDo.bind(this)}
                     changeText={this.handleChangeTextInTextInput.bind(this)}
@@ -48,8 +49,13 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
         this.props.changeTextInTextInput(text);
     }
 
-    handleDeleteTask(index: number) {
-        this.props.deleteTaskInToDoList(index);
+    handleDeleteTask(id: string) {
+        this.props.deleteTaskInToDoList(id);
+    }
+
+    handleClickOnTask(id: string) {
+        this.props.navigation.push("Description");
+        this.props.setTaskId(id)
     }
 }
 

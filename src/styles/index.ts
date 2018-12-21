@@ -11,7 +11,7 @@ const toDoListStyles = StyleSheet.create({
         height: 60,
         paddingRight: 10,
         paddingLeft: 10,
-        borderColor: "#303030",
+        borderColor: "#8D8D8D",
         borderTopWidth: 2,
         width: "100%",
         marginTop: "auto",
@@ -22,7 +22,10 @@ const toDoListStyles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         alignItems: "center",
-        margin: 6
+        margin: 6,
+        paddingBottom: 5,
+        borderBottomColor: "#8D8D8D",
+        borderBottomWidth: 1
     },
     flatListItemText: {
         fontSize: 24,
