@@ -1,9 +1,10 @@
 import React from "react";
 import { FlatList, Text, View, Button, TouchableOpacity } from "react-native";
 import { toDoListStyles } from "../styles";
+import { Tasks } from "../models";
 
 interface Props {
-    tasks: Object[]
+    tasks: Tasks[]
     deleteTask: (id: string) => any;
     clickOnTask: (id: string) => any;
 }

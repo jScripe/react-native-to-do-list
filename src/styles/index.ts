@@ -35,6 +35,22 @@ const toDoListStyles = StyleSheet.create({
     },
     flatListIconDelete: {
         marginLeft: "auto"
+    },
+    descriptionTitle: {
+        borderBottomWidth: 1,
+        borderBottomColor: "black",
+        paddingLeft: 10,
+        paddingRight: 10
+    },
+    descriptionBody: {
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderBottomColor: "black",
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginTop: 5,
+        minHeight: 300,
+        textAlignVertical: "top",
     }
 })
 

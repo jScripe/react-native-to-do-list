@@ -6,10 +6,11 @@ import FlatListForTask from "../components/flatListForTask";
 import { connect } from 'react-redux';
 import { actions } from "../actions";
 import { toDoListStyles } from "../styles/index";
+import { Tasks } from "../models";
 
 
 interface ToDoListContainerProps {
-    tasks: Object[];
+    tasks: Tasks[]
     text: string;
     navigation: any;
 }
@@ -18,7 +19,7 @@ type ToDoListContainerJoinedProps = ToDoListContainerProps & {
     addTaskInToDoList: (text: string) => any;
     changeTextInTextInput: (text: string) => any;
     deleteTaskInToDoList: (id: string) => any;
-    setTaskId: (id: string) => any;
+    setCurrentTaskId: (id: string) => any;
 };
 
 class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
@@ -55,7 +56,7 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
 
     handleClickOnTask(id: string) {
         this.props.navigation.push("Description");
-        this.props.setTaskId(id)
+        this.props.setCurrentTaskId(id)
     }
 }
 

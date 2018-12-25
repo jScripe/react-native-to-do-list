@@ -3,7 +3,7 @@ import actionTypes from "./types/actionTypes";
 const addTaskInToDoList = (taskText: string) => {
     return {
         type: actionTypes.ADD_TASK,
-        task: taskText
+        title: taskText
     }
 }
 
@@ -21,16 +21,34 @@ const deleteTaskInToDoList = (id: string) => {
     }
 }
 
-const setTaskId = (id: string) => {
+const setCurrentTaskId = (id: string) => {
     return {
         type: actionTypes.SET_ID,
-        taskId: id
+        currentTaskId: id
     }
 }
+
+const changeTitleTask = (changeText: string) => {
+    return {
+        type: actionTypes.CHANGE_TITLE_TASK,
+        title: changeText
+    }
+}
+
+const addBodyForDescription = (text: string) => {
+    return {
+        type: actionTypes.ADD_BODY_FOR_DESCRIPTION,
+        body: text
+    }
+}
+
+
 
 export {
     addTaskInToDoList,
     changeTextInTextInput,
     deleteTaskInToDoList,
-    setTaskId
+    setCurrentTaskId,
+    changeTitleTask,
+    addBodyForDescription
 }

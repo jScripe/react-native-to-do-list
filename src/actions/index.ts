@@ -1,7 +1,7 @@
 import * as toDoListActions from "./toDoListActionCreator";
 
 const actions = {
-    ...toDoListActions
+    ...toDoListActions,
 };
 
 export { actions };

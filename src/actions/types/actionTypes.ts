@@ -2,7 +2,9 @@ const actionTypes = {
     ADD_TASK: "ADD_TASK",
     CHANGE_TEXT: "CHANGE_TEXT",
     DELETE_TASK: "DELETE_TASK",
-    SET_ID: "SET_ID"
+    SET_ID: "SET_ID",
+    CHANGE_TITLE_TASK: "CHANGE_TITLE_TASK",
+    ADD_BODY_FOR_DESCRIPTION: "ADD_BODY_FOR_DESCRIPTION"
 };
 
  export default actionTypes;
