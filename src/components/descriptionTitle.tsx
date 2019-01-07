@@ -4,7 +4,9 @@ import { toDoListStyles } from "../styles";
 
 interface Props {
     changeTitle: (text: string) => any;
+    addTask: (text: string) => any;
     title: string;
+    taskId: string;
 }
 
 const DescriptionTitle = (props: Props) => {
@@ -19,6 +21,9 @@ const DescriptionTitle = (props: Props) => {
             onSubmitEditing={() => {
                 if(textInput === "") {
                     textInput = props.title;
+                }
+                if(props.taskId === "addTask") {
+                    props.addTask(textInput);
                 }
                 props.changeTitle(textInput);
                 textInput = "";

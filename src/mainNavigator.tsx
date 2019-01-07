@@ -12,9 +12,9 @@ const MainNavigator = createStackNavigator(
             navigationOptions: {
                 title: "To do",
                 headerStyle: {
-                    backgroundColor: "blue"
+                    backgroundColor: "#4ab69e"
                 },
-                headerTintColor: '#fff',
+                headerTintColor: "#fff",
             }
         },
         Description: {
@@ -22,14 +22,14 @@ const MainNavigator = createStackNavigator(
             navigationOptions: {
                 title: "Description task",
                 headerStyle: {
-                    backgroundColor: "blue"
+                    backgroundColor: "#4ab69e"
                 },
-                headerTintColor: '#fff',
+                headerTintColor: "#fff",
             }
         }
     },
     {
-        initialRouteName: 'Home'
+        initialRouteName: "Home"
     }
 ); 
 

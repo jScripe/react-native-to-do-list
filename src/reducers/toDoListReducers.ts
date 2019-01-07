@@ -22,9 +22,11 @@ function handleAddTask(
     state: ToDoListStore, 
     action: ReturnType<typeof actions.addTaskInToDoList>
 ): ToDoListStore {
+    const id: string = generateId();
     return {
         ...state,
-        tasks: state.tasks.concat([{id: generateId(), title: action.title}])
+        tasks: state.tasks.concat([{id: id, title: action.title}]),
+        taskId: id
     }
 }
 

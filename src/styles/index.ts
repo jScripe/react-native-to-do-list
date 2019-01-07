@@ -7,25 +7,12 @@ const toDoListStyles = StyleSheet.create({
         flexDirection: "column",
         backgroundColor: "#E0E0E0"
     },
-    textInput: {
-        height: 60,
-        paddingRight: 10,
-        paddingLeft: 10,
-        borderColor: "#8D8D8D",
-        borderTopWidth: 2,
-        width: "100%",
-        marginTop: "auto",
-        backgroundColor: "#EEEEEE",
-        fontSize: 24
-    },
     flatListItem: {
         flex: 1,
         flexDirection: "row",
         alignItems: "center",
         margin: 6,
-        paddingBottom: 5,
-        borderBottomColor: "#8D8D8D",
-        borderBottomWidth: 1
+        paddingBottom: 10,
     },
     flatListItemText: {
         fontSize: 24,
@@ -37,20 +24,39 @@ const toDoListStyles = StyleSheet.create({
         marginLeft: "auto"
     },
     descriptionTitle: {
-        borderBottomWidth: 1,
-        borderBottomColor: "black",
+        backgroundColor: "#f1fffb",
+        borderBottomWidth: 3,
+        borderBottomColor: "#defff6",
+        marginBottom: 10,
         paddingLeft: 10,
         paddingRight: 10
     },
     descriptionBody: {
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
-        borderBottomColor: "black",
+        height: "100%",
+        backgroundColor: "#f1fffb",
         paddingLeft: 10,
         paddingRight: 10,
-        marginTop: 5,
-        minHeight: 300,
         textAlignVertical: "top",
+    },
+    touchableIconAdd: {
+        position: "absolute",
+        width: 80,
+        height: 80,
+        right: 10,
+        bottom: 10
+    },
+    iconAdd: {
+        width: 80, 
+        height: 80,
+    },
+    iconDelete: {
+        width: 32,
+        height: 32,
+    },
+    iconDone: {
+        width: 32,
+        height: 32,
+        marginRight: 10
     }
 })
 

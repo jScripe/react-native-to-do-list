@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, Text, View, Button, TouchableOpacity } from "react-native";
+import { FlatList, Text, View, Button, TouchableOpacity, Image } from "react-native";
 import { toDoListStyles } from "../styles";
 import { Tasks } from "../models";
 
@@ -17,7 +17,12 @@ const FlatListForTask = (props: Props) => {
             renderItem={({item}) => (
                 <View style={toDoListStyles.flatListItem}>
                     <View>
-                        <Text>[v]</Text>
+                    <TouchableOpacity>
+                            <Image
+                                style={toDoListStyles.iconDone}
+                                source={require('../../static/done-icon.png')}
+                            />
+                        </TouchableOpacity>
                     </View>
                     <TouchableOpacity onPress={() => {
                         props.clickOnTask(item.id);
@@ -25,9 +30,16 @@ const FlatListForTask = (props: Props) => {
                         <Text style={toDoListStyles.flatListItemText}>{item.title}</Text>
                     </TouchableOpacity>
                     <View style={toDoListStyles.flatListIconDelete}>
-                        <Button title="X" onPress={() => {
-                            props.deleteTask(item.id);
-                        }} />
+                        <TouchableOpacity
+                            onPress={() => {
+                                props.deleteTask(item.id)
+                            }}
+                        >
+                            <Image
+                                style={toDoListStyles.iconDelete}
+                                source={require('../../static/delete-icon.png')}
+                            />
+                        </TouchableOpacity>
                     </View>
                 </View>
             )}

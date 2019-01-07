@@ -13,6 +13,7 @@ interface DescriptionTaskContainerProps {
 }
 
 type DescriptionTaskContainerJoinedProps = DescriptionTaskContainerProps & {
+    addTaskInToDoList: (text: string) => any;
     changeTitleTask: (text: string) => any;
     addBodyForDescription: (text: string) => any;
 };
@@ -27,12 +28,18 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
                 <DescriptionTitle
                     changeTitle={this.handleChangeTitleTask.bind(this)}
                     title={this.showTitleById()}
+                    taskId={this.props.taskId}
+                    addTask={this.handleAddTaskInToDo.bind(this)}
                 />
                 <DescriptionBody addBody={this.handleAddBodyForDescription.bind(this)} body={this.showBodyById()}/>
             </View>
            
             
         )
+    }
+
+    handleAddTaskInToDo(text: string) {
+        this.props.addTaskInToDoList(text);
     }
 
     handleChangeTitleTask(text: string) {
@@ -44,6 +51,9 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
     }
 
     showTitleById() {
+        if(this.props.taskId === "addTask") {
+            return "";
+        }
         const task = this.props.tasks.filter((item) => {
             return item.id === this.props.taskId;
         });
@@ -51,6 +61,9 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
     }
 
     showBodyById() {
+        if(this.props.taskId === "addTask") {
+            return "";
+        }
         const task = this.props.tasks.filter((item) => {
             return item.id === this.props.taskId;
         })
