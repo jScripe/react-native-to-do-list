@@ -5,11 +5,14 @@ import { connect } from 'react-redux';
 import DescriptionTitle from "../components/descriptionTitle";
 import DescriptionBody from "../components/descriptionBody";
 import { Tasks } from "../models";
-import { View } from "react-native";
+import { View, Button, TextInput } from "react-native";
+import { toDoListStyles } from "../styles";
+
 
 interface DescriptionTaskContainerProps {
-    tasks: Tasks[]
-    taskId: string
+    tasks: Tasks[];
+    taskId: string;
+    navigation: any;
 }
 
 type DescriptionTaskContainerJoinedProps = DescriptionTaskContainerProps & {
@@ -20,22 +23,52 @@ type DescriptionTaskContainerJoinedProps = DescriptionTaskContainerProps & {
 
 class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedProps> {
 
-    private text: string;
+    private textTitle: string = "";
+    private textBody: string = "";
+    private valueTitle: string = this.showTitleById();
+    private valueBody: string = this.showBodyById();
     
     public render() {
         return (
             <View>
-                <DescriptionTitle
-                    changeTitle={this.handleChangeTitleTask.bind(this)}
-                    title={this.showTitleById()}
-                    taskId={this.props.taskId}
-                    addTask={this.handleAddTaskInToDo.bind(this)}
-                />
-                <DescriptionBody addBody={this.handleAddBodyForDescription.bind(this)} body={this.showBodyById()}/>
+                <TextInput
+                    style={toDoListStyles.descriptionTitle}
+                    onChangeText={(text) => {
+                        this.textTitle = text;
+                    }}
+                >
+                {this.valueTitle}</TextInput>
+
+                <TextInput
+                    style={toDoListStyles.descriptionBody}
+                    onChangeText={(text) => {
+                        this.textBody = text;
+                    }}
+                    multiline
+                >{this.valueBody}</TextInput>
+
+                <Button color="#4ab69e" title="save" onPress={this.handleClickOnButtonSave.bind(this)}></Button>  
             </View>
            
             
         )
+    }
+
+    handleClickOnButtonSave() {
+        if(this.textTitle === "") {
+            this.textTitle = this.showTitleById();
+        }
+        if(this.props.taskId === "addTask") {
+            this.handleAddTaskInToDo(this.textTitle);
+        }
+        if(this.textBody === "") {
+            this.textBody = this.showBodyById();
+        }
+        this.handleChangeTitleTask(this.textTitle);
+        this.handleAddBodyForDescription(this.textBody);
+        this.textTitle = "";
+        this.textBody = "";
+        this.props.navigation.push("Home");
     }
 
     handleAddTaskInToDo(text: string) {

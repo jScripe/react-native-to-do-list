@@ -42,6 +42,19 @@ const addBodyForDescription = (text: string) => {
     }
 }
 
+const changeCheckedFlag = () => {
+    return {
+        type: actionTypes.CHANGE_CHECKED_fLAG
+    }
+}
+
+const changeSelectedValue = (selectedValue: string) => {
+    return {
+        type: actionTypes.CHANGE_SELECTED_VALUE,
+        selectedValue: selectedValue
+    }
+}
+
 
 
 export {
@@ -50,5 +63,7 @@ export {
     deleteTaskInToDoList,
     setCurrentTaskId,
     changeTitleTask,
-    addBodyForDescription
+    addBodyForDescription,
+    changeCheckedFlag,
+    changeSelectedValue
 }

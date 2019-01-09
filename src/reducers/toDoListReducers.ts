@@ -10,12 +10,14 @@ interface ToDoListStore {
     tasks: Tasks[]
     text: string;
     taskId: string;
+    selectedValue: string;
 }
 
 const initialState: ToDoListStore = {
     tasks: [],
     text: "",
-    taskId: ""
+    taskId: "",
+    selectedValue: "sort"
 }
 
 function handleAddTask(
@@ -25,7 +27,7 @@ function handleAddTask(
     const id: string = generateId();
     return {
         ...state,
-        tasks: state.tasks.concat([{id: id, title: action.title}]),
+        tasks: state.tasks.concat([{id: id, title: action.title, checked: false}]),
         taskId: id
     }
 }
@@ -95,6 +97,32 @@ function handleAddBodyForDescription(
     }
 }
 
+function handleChangeCheckedFlag(
+    state: ToDoListStore,
+    action: ReturnType<typeof actions.changeCheckedFlag>
+): ToDoListStore {
+    const tasks = [...state.tasks];
+    tasks.forEach((item) => {
+        if(item.id === state.taskId) {
+            item.checked = !item.checked;
+        }
+    })
+    return {
+        ...state,
+        tasks: tasks
+    }
+}
+
+function handleChangeSelectedValue(
+    state: ToDoListStore,
+    action: ReturnType<typeof actions.changeSelectedValue>
+): ToDoListStore {
+    return {
+        ...state,
+        selectedValue: action.selectedValue
+    }
+}
+
 const toDoListReducers = handleActions<ToDoListStore, any>(
     {
         [actionTypes.ADD_TASK]: handlerWrapper(handleAddTask),
@@ -102,7 +130,9 @@ const toDoListReducers = handleActions<ToDoListStore, any>(
         [actionTypes.DELETE_TASK]: handlerWrapper(handleDeleteTask),
         [actionTypes.SET_ID]: handlerWrapper(handleSetTaskId),
         [actionTypes.CHANGE_TITLE_TASK]: handlerWrapper(handleChangeTitleTask),
-        [actionTypes.ADD_BODY_FOR_DESCRIPTION]: handlerWrapper(handleAddBodyForDescription)
+        [actionTypes.ADD_BODY_FOR_DESCRIPTION]: handlerWrapper(handleAddBodyForDescription),
+        [actionTypes.CHANGE_CHECKED_fLAG]: handlerWrapper(handleChangeCheckedFlag),
+        [actionTypes.CHANGE_SELECTED_VALUE]: handlerWrapper(handleChangeSelectedValue),
     },
     initialState
 )

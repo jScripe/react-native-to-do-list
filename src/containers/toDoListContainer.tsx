@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, Image } from "react-native";
+import { View, TouchableOpacity, Image, Button } from "react-native";
 import { Component } from "react";
 import FlatListForTask from "../components/flatListForTask";
 import { connect } from 'react-redux';
@@ -12,29 +12,45 @@ interface ToDoListContainerProps {
     tasks: Tasks[]
     text: string;
     navigation: any;
+    selectedValue: string;
 }
 
 type ToDoListContainerJoinedProps = ToDoListContainerProps & {
     deleteTaskInToDoList: (id: string) => any;
     setCurrentTaskId: (id: string) => any;
+    changeCheckedFlag: () => any;
+    changeSelectedValue: (selectedValue: string) => {};
 };
 
 class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
 
+    componentDidMount() {
+        this.props.navigation.setParams({
+            currentSelectedValue: this.getCurrentSelectedValue.bind(this),
+            changeSelectedValue: this.props.changeSelectedValue
+        })
+    }
+
     public render() {
         return (
-            <View style={toDoListStyles.toDoWrapper}>
-                <FlatListForTask tasks={this.props.tasks} deleteTask={this.handleDeleteTask.bind(this)} clickOnTask={this.handleClickOnTask.bind(this)}/>
-                <TouchableOpacity
-                    style={toDoListStyles.touchableIconAdd}
-                    onPress={this.handleClickOnIconAdd.bind(this)}
-                >
-                    <Image
-                        style={toDoListStyles.iconAdd}
-                        source={require('../../static/circle-add-icon.png')}
+                <View style={toDoListStyles.toDoWrapper}>
+                    <FlatListForTask 
+                        tasks={this.props.tasks} 
+                        deleteTask={this.handleDeleteTask.bind(this)} 
+                        clickOnTask={this.handleClickOnTask.bind(this)} 
+                        clickOnCheckBox={this.handleClickOnCheckBox.bind(this)}
+                        selectedValue={this.props.selectedValue}
                     />
-                </TouchableOpacity>
-            </View>
+                    <TouchableOpacity
+                        style={toDoListStyles.touchableIconAdd}
+                        onPress={this.handleClickOnIconAdd.bind(this)}
+                    >
+                        <Image
+                            style={toDoListStyles.iconAdd}
+                            source={require('../../static/circle-add-icon.png')}
+                        />
+                    </TouchableOpacity>
+                </View>   
         )
     }
 
@@ -51,12 +67,22 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
         this.props.navigation.push("Description");
         this.props.setCurrentTaskId("addTask");
     }
+
+    handleClickOnCheckBox(id: string) {
+        this.props.setCurrentTaskId(id);
+        this.props.changeCheckedFlag();
+    }
+
+    getCurrentSelectedValue() {
+        return this.props.selectedValue;
+    }
 }
 
 function mapStateToProps(state: any) {
     return {
         tasks: state.toDoListReducers.tasks,
-        text: state.toDoListReducers.text
+        text: state.toDoListReducers.text,
+        selectedValue: state.toDoListReducers.selectedValue
     }
 }
 
