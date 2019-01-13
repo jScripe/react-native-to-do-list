@@ -72,6 +72,12 @@ const toDoListStyles = StyleSheet.create({
     iconWrite: {
         width: 32,
         height: 32,
+    },
+    iconBrowser: {
+        width: 32,
+        height: 32,
+        marginLeft: 10,
+        marginRight: 10,
     }
 })
 

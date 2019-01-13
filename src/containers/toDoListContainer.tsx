@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { actions } from "../actions";
 import { toDoListStyles } from "../styles/index";
 import { Tasks } from "../models";
+// @ts-ignore
+import { WeatherWidget } from 'react-native-weather';
 
 
 interface ToDoListContainerProps {
@@ -31,9 +33,20 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
         })
     }
 
+    componentWillMount() {
+        console.disableYellowBox = true;
+    }
+
     public render() {
         return (
                 <View style={toDoListStyles.toDoWrapper}>
+                    <WeatherWidget
+                        // при необходимости можно прокидывать широту/долготу/город и получать погоду в любой точке мира.(но мне пока лень)
+                        api={"7ceed1a3246229e2382e445760321ca4"}
+                        lat={"56.84976"}
+                        lng={"53.20448"}
+                        location={"Izhevsk"}
+                    />
                     <FlatListForTask 
                         tasks={this.props.tasks} 
                         deleteTask={this.handleDeleteTask.bind(this)} 
