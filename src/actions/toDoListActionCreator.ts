@@ -55,6 +55,32 @@ const changeSelectedValue = (selectedValue: string) => {
     }
 }
 
+const addInfoForWeather = (infoWeather: object) => {
+    return {
+        type: actionTypes.ADD_INFO_FOR_WEATHER,
+        infoWeather: infoWeather
+    }
+}
+const getInfoForWeather = (api: string, lat: string, lng: string) => {
+    return (dispatch: any) => {
+        let stringUrl = 'https://api.darksky.net/forecast/' + api + '/' + lat + ',' + lng;
+        let infoWeather: any = {};
+
+        fetch(stringUrl)
+            .then(response => response.json())
+            .then((responseJson) => {
+                infoWeather.summary = responseJson.currently.summary;
+                infoWeather.temp = (Math.round(10 * responseJson.currently.temperature)/10) + '°F';
+                infoWeather.icon = responseJson.currently.icon;
+                infoWeather.precipChance = Math.round(responseJson.currently.precipProbability * 1000)/10;
+                dispatch(addInfoForWeather(infoWeather));
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+}
+
 
 
 export {
@@ -65,5 +91,7 @@ export {
     changeTitleTask,
     addBodyForDescription,
     changeCheckedFlag,
-    changeSelectedValue
+    changeSelectedValue,
+    addInfoForWeather,
+    getInfoForWeather,
 }

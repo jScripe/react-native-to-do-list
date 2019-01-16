@@ -3,7 +3,7 @@ import { handlerWrapper } from "../utils/reducerUtils";
 import actionTypes from "../actions/types/actionTypes";
 import { actions } from "../actions";
 import { generateId } from "../utils/generateId";
-import { Tasks } from "../models";
+import { Tasks, InfoWeather } from "../models";
 import { func } from "prop-types";
 
 interface ToDoListStore {
@@ -11,13 +11,15 @@ interface ToDoListStore {
     text: string;
     taskId: string;
     selectedValue: string;
+    infoWeather: InfoWeather
 }
 
 const initialState: ToDoListStore = {
     tasks: [],
     text: "",
     taskId: "",
-    selectedValue: "sort"
+    selectedValue: "sort",
+    infoWeather: {}
 }
 
 function handleAddTask(
@@ -123,6 +125,16 @@ function handleChangeSelectedValue(
     }
 }
 
+function handleAddInfoForWeather(
+    state: ToDoListStore,
+    action: ReturnType<typeof actions.addInfoForWeather>
+): ToDoListStore {
+    return {
+        ...state,
+        infoWeather: action.infoWeather
+    }
+}
+
 const toDoListReducers = handleActions<ToDoListStore, any>(
     {
         [actionTypes.ADD_TASK]: handlerWrapper(handleAddTask),
@@ -133,6 +145,7 @@ const toDoListReducers = handleActions<ToDoListStore, any>(
         [actionTypes.ADD_BODY_FOR_DESCRIPTION]: handlerWrapper(handleAddBodyForDescription),
         [actionTypes.CHANGE_CHECKED_fLAG]: handlerWrapper(handleChangeCheckedFlag),
         [actionTypes.CHANGE_SELECTED_VALUE]: handlerWrapper(handleChangeSelectedValue),
+        [actionTypes.ADD_INFO_FOR_WEATHER]: handlerWrapper(handleAddInfoForWeather),
     },
     initialState
 )

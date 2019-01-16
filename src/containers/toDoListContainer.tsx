@@ -5,9 +5,8 @@ import FlatListForTask from "../components/flatListForTask";
 import { connect } from 'react-redux';
 import { actions } from "../actions";
 import { toDoListStyles } from "../styles/index";
-import { Tasks } from "../models";
-// @ts-ignore
-import { WeatherWidget } from 'react-native-weather';
+import { Tasks, InfoWeather } from "../models";
+import WeatherView from '../components/weatherView';
 
 
 interface ToDoListContainerProps {
@@ -15,6 +14,7 @@ interface ToDoListContainerProps {
     text: string;
     navigation: any;
     selectedValue: string;
+    infoWeather: InfoWeather;
 }
 
 type ToDoListContainerJoinedProps = ToDoListContainerProps & {
@@ -22,6 +22,7 @@ type ToDoListContainerJoinedProps = ToDoListContainerProps & {
     setCurrentTaskId: (id: string) => any;
     changeCheckedFlag: () => any;
     changeSelectedValue: (selectedValue: string) => {};
+    getInfoForWeather: (api: string, lat: string, lng: string) => any;
 };
 
 class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
@@ -31,6 +32,7 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
             currentSelectedValue: this.getCurrentSelectedValue.bind(this),
             changeSelectedValue: this.props.changeSelectedValue
         })
+        this.props.getInfoForWeather("7ceed1a3246229e2382e445760321ca4", "56.84976", "53.20448")
     }
 
     componentWillMount() {
@@ -40,13 +42,13 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
     public render() {
         return (
                 <View style={toDoListStyles.toDoWrapper}>
-                    <WeatherWidget
-                        // при необходимости можно прокидывать широту/долготу/город и получать погоду в любой точке мира.(но мне пока лень)
-                        api={"7ceed1a3246229e2382e445760321ca4"}
-                        lat={"56.84976"}
-                        lng={"53.20448"}
-                        location={"Izhevsk"}
-                    />
+                    <WeatherView 
+                        location="Izhevsk"
+                        summary={this.props.infoWeather.summary}
+                        icon={this.props.infoWeather.icon}
+                        temp={this.props.infoWeather.temp}
+                        precipChance={this.props.infoWeather.precipChance}
+                    ></WeatherView>
                     <FlatListForTask 
                         tasks={this.props.tasks} 
                         deleteTask={this.handleDeleteTask.bind(this)} 
@@ -95,7 +97,8 @@ function mapStateToProps(state: any) {
     return {
         tasks: state.toDoListReducers.tasks,
         text: state.toDoListReducers.text,
-        selectedValue: state.toDoListReducers.selectedValue
+        selectedValue: state.toDoListReducers.selectedValue,
+        infoWeather: state.toDoListReducers.infoWeather,
     }
 }
 

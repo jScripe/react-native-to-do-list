@@ -35,12 +35,13 @@ const toDoListStyles = StyleSheet.create({
         paddingRight: 10
     },
     descriptionBody: {
-        height: "84%",
+        height: "77%",
         backgroundColor: "#f1fffb",
-        borderWidth: 3,
+        borderTopWidth: 3,
         borderColor: "#defff6",
         paddingLeft: 10,
         paddingRight: 10,
+        marginBottom: 10,
         textAlignVertical: "top",
     },
     touchableIconAdd: {
@@ -78,6 +79,69 @@ const toDoListStyles = StyleSheet.create({
         height: 32,
         marginLeft: 10,
         marginRight: 10,
+    },
+    container: {
+        flex: -1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        position: 'relative',
+        borderTopWidth: 1,
+        borderTopColor: '#8294a0',
+        borderBottomWidth: 1,
+        borderBottomColor: '#8294a0',
+    },
+        titleContainer:{
+        flex: 1,
+        borderRightWidth: 1,
+        borderRightColor: '#8294a0'
+    },
+        title:{
+        marginTop: 5,
+        marginBottom: 5,
+        marginRight: 5,
+        color: 'black',
+        fontWeight: '500',
+        textAlign: 'right'
+    },
+        customTitle:{
+        marginTop: 13,
+        marginBottom: 13,
+        marginRight: 5,
+        color: 'black',
+        fontWeight: '500',
+        textAlign: 'right'
+    },
+        summaryContainer: {
+        flex: 1.5,
+        flexDirection: 'row',
+        marginTop: 12
+    },
+        summaryContainerLong: {
+        flex: 1.5,
+        flexDirection: 'row',
+        marginTop: 5
+    },
+        summary: {
+        marginLeft: 20,
+        marginRight: 10
+    },
+        icon: {
+        marginTop: -6
+    },
+        tempContainer: {
+        flex: .5,
+        flexDirection: 'column',
+        marginTop: 3,
+        marginRight: 15,
+        alignItems: 'flex-end'
+    },
+        precipImage: {
+        marginTop: 3
+    },
+        spinner: {
+        flex: -1,
+        marginTop: 12,
+        marginBottom: 12
     }
 })
 

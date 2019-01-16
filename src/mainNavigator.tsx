@@ -26,7 +26,6 @@ const MainNavigator = createStackNavigator(
                                     if(options.navigation.state.params.currentSelectedValue === undefined) {
                                         return "";
                                     }
-                                    console.log(1111111111111111, options.navigation.state.params.currentSelectedValue());
                                     options.navigation.state.params.currentSelectedValue()
                                 }}
                                 style={{ height: 50, width: 120 }}

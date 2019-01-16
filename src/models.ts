@@ -1,3 +1,5 @@
+import { string } from "prop-types";
+
 interface Tasks {
     id: string,
     title: string,
@@ -5,6 +7,14 @@ interface Tasks {
     checked: boolean
 }
 
+interface InfoWeather {
+    summary?: string,
+    temp?: string,
+    icon?: string,
+    precipChance?: number
+}
+
 export {
-    Tasks
+    Tasks,
+    InfoWeather
 }

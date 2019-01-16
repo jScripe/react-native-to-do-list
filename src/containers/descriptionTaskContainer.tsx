@@ -2,10 +2,8 @@ import React from "react";
 import { Component } from "react";
 import { actions } from "../actions";
 import { connect } from 'react-redux';
-import DescriptionTitle from "../components/descriptionTitle";
-import DescriptionBody from "../components/descriptionBody";
 import { Tasks } from "../models";
-import { View, Button, TextInput } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { toDoListStyles } from "../styles";
 
 
@@ -30,7 +28,7 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
     
     public render() {
         return (
-            <View>
+            <View style={{flex: 1, justifyContent: "space-between"}}>
                 <TextInput
                     style={toDoListStyles.descriptionTitle}
                     onChangeText={(text) => {
@@ -47,7 +45,9 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
                     multiline
                 >{this.valueBody}</TextInput>
 
-                <Button color="#4ab69e" title="save" onPress={this.handleClickOnButtonSave.bind(this)}></Button>  
+                <TouchableOpacity onPress={this.handleClickOnButtonSave.bind(this)} style={{marginTop: "auto", marginBottom: 10, height: 50, width: 320, alignSelf: "center"}}>
+                    <View style={{ flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center", backgroundColor: "#4ab69e", borderRadius: 30 }}><Text style={{fontSize: 18, color: "#fff"}}>Save</Text></View>
+                </TouchableOpacity>
             </View>
            
             
