@@ -42,9 +42,10 @@ const addBodyForDescription = (text: string) => {
     }
 }
 
-const changeCheckedFlag = () => {
+const changeCheckedFlag = (id: string) => {
     return {
-        type: actionTypes.CHANGE_CHECKED_fLAG
+        type: actionTypes.CHANGE_CHECKED_fLAG,
+        currentId: id
     }
 }
 
@@ -81,6 +82,13 @@ const getInfoForWeather = (api: string, lat: string, lng: string) => {
     }
 }
 
+const changeFoto = (uri: any) => {
+    return {
+        type: actionTypes.CHANGE_FOTO,
+        pathFoto: uri,
+    }
+}
+
 
 
 export {
@@ -94,4 +102,5 @@ export {
     changeSelectedValue,
     addInfoForWeather,
     getInfoForWeather,
+    changeFoto
 }

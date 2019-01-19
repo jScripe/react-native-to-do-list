@@ -3,8 +3,10 @@ import { Component } from "react";
 import { actions } from "../actions";
 import { connect } from 'react-redux';
 import { Tasks } from "../models";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { toDoListStyles } from "../styles";
+import ImagePicker from "react-native-image-picker";
+
 
 
 interface DescriptionTaskContainerProps {
@@ -17,14 +19,20 @@ type DescriptionTaskContainerJoinedProps = DescriptionTaskContainerProps & {
     addTaskInToDoList: (text: string) => any;
     changeTitleTask: (text: string) => any;
     addBodyForDescription: (text: string) => any;
+    changeFoto: (uri: any) => any;
 };
 
 class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedProps> {
-
+    
     private textTitle: string = "";
     private textBody: string = "";
     private valueTitle: string = this.showTitleById();
     private valueBody: string = this.showBodyById();
+    private pathFoto: any = this.showFotoById();
+
+    componentWillUpdate() {
+        this.pathFoto = this.showFotoById();
+    }
     
     public render() {
         return (
@@ -45,13 +53,31 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
                     multiline
                 >{this.valueBody}</TextInput>
 
-                <TouchableOpacity onPress={this.handleClickOnButtonSave.bind(this)} style={{marginTop: "auto", marginBottom: 10, height: 50, width: 320, alignSelf: "center"}}>
-                    <View style={{ flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center", backgroundColor: "#4ab69e", borderRadius: 30 }}><Text style={{fontSize: 18, color: "#fff"}}>Save</Text></View>
+                <View style={{position: "absolute", bottom: 60, width: "100%", height: "50%"}}>
+                    <Image style={{width: "100%", height: "90%"}} source={this.pathFoto}></Image>
+                </View>
+                
+                <TouchableOpacity 
+                    onPress={this.handleTest.bind(this)}
+                    style={{position: "absolute", bottom: 30, right: 10}}>
+                        <Text>Ulala</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity onPress={this.handleClickOnButtonSave.bind(this)} style={toDoListStyles.wrapperButtonSave}>
+                    <View style={toDoListStyles.buttonSave}><Text style={toDoListStyles.textButtonSave}>Save</Text></View>
                 </TouchableOpacity>
             </View>
-           
-            
         )
+    }
+
+    handleTest() {
+        ImagePicker.showImagePicker({}, (response: any) => {
+            if (!response.didCancel && !response.error) {
+                this.props.changeFoto(response.uri);
+            } else if (response.error) {
+                console.log(response.error);
+            }
+        })
     }
 
     handleClickOnButtonSave() {
@@ -102,9 +128,24 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
         })
         return task[0].body;
     }
+
+    showFotoById() {
+        if(this.props.taskId === "addTask") {
+            return require("../../static/full.png");
+        }
+        const task = this.props.tasks.filter((item) => {
+            return item.id === this.props.taskId;
+        })
+        if(task[0].pathFoto === undefined) {
+            return require("../../static/full.png");
+        } else {
+            return {uri: task[0].pathFoto};
+        }
+    }
 }
 
 function mapStateToProps(state: any) {
+    console.log(111111111111111, state);
     return {
         tasks: state.toDoListReducers.tasks,
         taskId: state.toDoListReducers.taskId,

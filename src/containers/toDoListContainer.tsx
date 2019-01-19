@@ -9,9 +9,9 @@ import { Tasks, InfoWeather } from "../models";
 import WeatherView from '../components/weatherView';
 
 
+
 interface ToDoListContainerProps {
     tasks: Tasks[]
-    text: string;
     navigation: any;
     selectedValue: string;
     infoWeather: InfoWeather;
@@ -20,7 +20,7 @@ interface ToDoListContainerProps {
 type ToDoListContainerJoinedProps = ToDoListContainerProps & {
     deleteTaskInToDoList: (id: string) => any;
     setCurrentTaskId: (id: string) => any;
-    changeCheckedFlag: () => any;
+    changeCheckedFlag: (id: string) => any;
     changeSelectedValue: (selectedValue: string) => {};
     getInfoForWeather: (api: string, lat: string, lng: string) => any;
 };
@@ -31,8 +31,8 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
         this.props.navigation.setParams({
             currentSelectedValue: this.getCurrentSelectedValue.bind(this),
             changeSelectedValue: this.props.changeSelectedValue
-        })
-        this.props.getInfoForWeather("7ceed1a3246229e2382e445760321ca4", "56.84976", "53.20448")
+        });
+        this.props.getInfoForWeather("7ceed1a3246229e2382e445760321ca4", "56.84976", "53.20448");
     }
 
     componentWillMount() {
@@ -74,7 +74,7 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
     }
 
     handleClickOnTask(id: string) {
-        this.props.navigation.push("Description");
+        this.props.navigation.push("Description");////// <----------------
         this.props.setCurrentTaskId(id);
     }
 
@@ -84,8 +84,7 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
     }
 
     handleClickOnCheckBox(id: string) {
-        this.props.setCurrentTaskId(id);
-        this.props.changeCheckedFlag();
+        this.props.changeCheckedFlag(id);
     }
 
     getCurrentSelectedValue() {
@@ -96,7 +95,6 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
 function mapStateToProps(state: any) {
     return {
         tasks: state.toDoListReducers.tasks,
-        text: state.toDoListReducers.text,
         selectedValue: state.toDoListReducers.selectedValue,
         infoWeather: state.toDoListReducers.infoWeather,
     }

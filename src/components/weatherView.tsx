@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, View, Text, ActivityIndicator } from "react-native";
+import { Image, View, Text } from "react-native";
 import { toDoListStyles } from "../styles";
 
 interface Props {
@@ -36,9 +36,9 @@ const WeatherView = (props: Props) => {
     return (
         <View style={toDoListStyles.container}>
             <View style={toDoListStyles.titleContainer}>
-                <Text style={[toDoListStyles.title, (props.location && props.location.length <= 13) && toDoListStyles.customTitle]}>{props.location}</Text>
+                <Text style={toDoListStyles.title}>{props.location}</Text>
             </View>
-            <View style={[toDoListStyles.summaryContainer, (props.summary.length >= 20) && toDoListStyles.summaryContainerLong]}>
+            <View style={toDoListStyles.summaryContainer}>
                 <Text style={toDoListStyles.summary}>{props.summary}</Text>
                 <Image style={toDoListStyles.icon} source={ getIcon(props.icon) } />
             </View>

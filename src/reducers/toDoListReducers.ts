@@ -67,6 +67,27 @@ function handleSetTaskId(
     }
 }
 
+
+function handleChangeSelectedValue(
+    state: ToDoListStore,
+    action: ReturnType<typeof actions.changeSelectedValue>
+    ): ToDoListStore {
+        return {
+            ...state,
+            selectedValue: action.selectedValue
+        }
+    }
+
+function handleAddInfoForWeather(
+    state: ToDoListStore,
+    action: ReturnType<typeof actions.addInfoForWeather>
+    ): ToDoListStore {
+        return {
+            ...state,
+            infoWeather: action.infoWeather
+        }
+    }
+        
 function handleChangeTitleTask(
     state: ToDoListStore,
     action: ReturnType<typeof actions.changeTitleTask>
@@ -105,7 +126,7 @@ function handleChangeCheckedFlag(
 ): ToDoListStore {
     const tasks = [...state.tasks];
     tasks.forEach((item) => {
-        if(item.id === state.taskId) {
+        if(item.id === action.currentId) {
             item.checked = !item.checked;
         }
     })
@@ -115,23 +136,19 @@ function handleChangeCheckedFlag(
     }
 }
 
-function handleChangeSelectedValue(
+function handleChangeFoto(
     state: ToDoListStore,
-    action: ReturnType<typeof actions.changeSelectedValue>
+    action: ReturnType<typeof actions.changeFoto>
 ): ToDoListStore {
+    const tasks = [...state.tasks];
+    tasks.forEach((item) => {
+        if(item.id === state.taskId) {
+            item.pathFoto = action.pathFoto;
+        }
+    })
     return {
         ...state,
-        selectedValue: action.selectedValue
-    }
-}
-
-function handleAddInfoForWeather(
-    state: ToDoListStore,
-    action: ReturnType<typeof actions.addInfoForWeather>
-): ToDoListStore {
-    return {
-        ...state,
-        infoWeather: action.infoWeather
+        tasks: tasks
     }
 }
 
@@ -146,6 +163,7 @@ const toDoListReducers = handleActions<ToDoListStore, any>(
         [actionTypes.CHANGE_CHECKED_fLAG]: handlerWrapper(handleChangeCheckedFlag),
         [actionTypes.CHANGE_SELECTED_VALUE]: handlerWrapper(handleChangeSelectedValue),
         [actionTypes.ADD_INFO_FOR_WEATHER]: handlerWrapper(handleAddInfoForWeather),
+        [actionTypes.CHANGE_FOTO]: handlerWrapper(handleChangeFoto),
     },
     initialState
 )

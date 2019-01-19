@@ -4,7 +4,8 @@ interface Tasks {
     id: string,
     title: string,
     body?: string,
-    checked: boolean
+    checked: boolean,
+    pathFoto?: any,
 }
 
 interface InfoWeather {

@@ -35,7 +35,7 @@ const toDoListStyles = StyleSheet.create({
         paddingRight: 10
     },
     descriptionBody: {
-        height: "77%",
+        height: "30%",
         backgroundColor: "#f1fffb",
         borderTopWidth: 3,
         borderColor: "#defff6",
@@ -96,16 +96,8 @@ const toDoListStyles = StyleSheet.create({
         borderRightColor: '#8294a0'
     },
         title:{
-        marginTop: 5,
+        marginTop: 12,
         marginBottom: 5,
-        marginRight: 5,
-        color: 'black',
-        fontWeight: '500',
-        textAlign: 'right'
-    },
-        customTitle:{
-        marginTop: 13,
-        marginBottom: 13,
         marginRight: 5,
         color: 'black',
         fontWeight: '500',
@@ -115,11 +107,6 @@ const toDoListStyles = StyleSheet.create({
         flex: 1.5,
         flexDirection: 'row',
         marginTop: 12
-    },
-        summaryContainerLong: {
-        flex: 1.5,
-        flexDirection: 'row',
-        marginTop: 5
     },
         summary: {
         marginLeft: 20,
@@ -142,6 +129,25 @@ const toDoListStyles = StyleSheet.create({
         flex: -1,
         marginTop: 12,
         marginBottom: 12
+    },
+    wrapperButtonSave: {
+        marginTop: "auto", 
+        marginBottom: 10, 
+        height: 50, 
+        width: 320, 
+        alignSelf: "center"
+    },
+    buttonSave: {
+        flex: 1, 
+        flexDirection: "row", 
+        alignItems: "center", 
+        justifyContent: "center", 
+        backgroundColor: "#4ab69e", 
+        borderRadius: 30
+    },
+    textButtonSave: {
+        fontSize: 18, 
+        color: "#fff"
     }
 })
 
