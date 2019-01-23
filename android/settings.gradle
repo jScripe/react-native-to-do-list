@@ -1,9 +1,13 @@
 rootProject.name = 'ToDoList'
+include ':rn-my-view'
+project(':rn-my-view').projectDir = new File(rootProject.projectDir, '../node_modules/rn-my-view/android')
 include ':react-native-gesture-handler'
 project(':react-native-gesture-handler').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gesture-handler/android')
 include ':react-native-image-picker'
 project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
 include ':react-native-fs'
 project(':react-native-fs').projectDir = new File(settingsDir, '../node_modules/react-native-fs/android')
+include ':rn-my-view'
+project(':rn-my-view').projectDir = new File(rootProject.projectDir,'../node_modules/rn-my-view/android')
 
 include ':app'

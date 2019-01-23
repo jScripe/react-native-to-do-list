@@ -1,6 +1,8 @@
 import React from "react";
-import { TouchableOpacity, Image, Linking } from "react-native";
+import { ImageBackground } from "react-native";
 import { toDoListStyles } from "../styles";
+// @ts-ignore
+import RNRnMyView from "rn-my-view";
 
 interface Props {
     
@@ -8,15 +10,10 @@ interface Props {
 
 const WebView = (props: Props) => {
     return (
-        <TouchableOpacity onPress={() => Linking.openURL("https://google.com")}>
-            <Image 
-                style={toDoListStyles.iconBrowser}
-                source={require("../../static/browser-icon.png")}
-            >
-
-            </Image>
-        </TouchableOpacity>
-    );
+        <ImageBackground source={require("../../static/browser-icon.png")} style={{height: 32, width: 32, marginRight: 10}}>
+            <RNRnMyView style={{width: 32, height: 32}} openBrowserWithUrl="http://google.com"></RNRnMyView>
+        </ImageBackground>
+    )
 }
 
 export default WebView;

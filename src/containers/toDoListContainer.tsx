@@ -19,7 +19,6 @@ interface ToDoListContainerProps {
 
 type ToDoListContainerJoinedProps = ToDoListContainerProps & {
     deleteTaskInToDoList: (id: string) => any;
-    setCurrentTaskId: (id: string) => any;
     changeCheckedFlag: (id: string) => any;
     changeSelectedValue: (selectedValue: string) => {};
     getInfoForWeather: (api: string, lat: string, lng: string) => any;
@@ -74,13 +73,11 @@ class ToDoListContainer extends Component<ToDoListContainerJoinedProps> {
     }
 
     handleClickOnTask(id: string) {
-        this.props.navigation.push("Description");////// <----------------
-        this.props.setCurrentTaskId(id);
+        this.props.navigation.push("Description", { currentId: id });
     }
 
     handleClickOnIconAdd() {
-        this.props.navigation.push("Description");
-        this.props.setCurrentTaskId("addTask");
+        this.props.navigation.push("Description", { currentId: null });
     }
 
     handleClickOnCheckBox(id: string) {

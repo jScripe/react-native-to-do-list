@@ -1,0 +1,20 @@
+
+{
+  "name": "rn-my-view",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": "",
+  "license": "",
+  "peerDependencies": {
+    "react": "16.6.1",
+    "react-native": "0.57.7"
+
+  }
+}

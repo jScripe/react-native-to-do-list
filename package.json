@@ -50,6 +50,7 @@
     "remote-redux-devtools": "0.5.13",
     "remote-redux-devtools-on-debugger": "0.8.3",
     "ts-jest": "23.10.5",
-    "typescript": "3.2.1"
+    "typescript": "3.2.1",
+    "rn-my-view": "file:libs/rn-my-view/"
   }
 }

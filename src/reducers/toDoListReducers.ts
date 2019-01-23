@@ -9,7 +9,6 @@ import { func } from "prop-types";
 interface ToDoListStore {
     tasks: Tasks[]
     text: string;
-    taskId: string;
     selectedValue: string;
     infoWeather: InfoWeather
 }
@@ -17,7 +16,6 @@ interface ToDoListStore {
 const initialState: ToDoListStore = {
     tasks: [],
     text: "",
-    taskId: "",
     selectedValue: "sort",
     infoWeather: {}
 }
@@ -29,8 +27,7 @@ function handleAddTask(
     const id: string = generateId();
     return {
         ...state,
-        tasks: state.tasks.concat([{id: id, title: action.title, checked: false}]),
-        taskId: id
+        tasks: state.tasks.concat([{id: id, title: action.title, checked: false, body: action.body}]),
     }
 }
 
@@ -54,16 +51,6 @@ function handleDeleteTask(
     return {
         ...state,
         tasks: tasks
-    }
-}
-
-function handleSetTaskId(
-    state: ToDoListStore,
-    action: ReturnType<typeof actions.setCurrentTaskId>
-): ToDoListStore {
-    return {
-        ...state,
-        taskId: action.currentTaskId
     }
 }
 
@@ -94,7 +81,7 @@ function handleChangeTitleTask(
 ): ToDoListStore {
     const tasks = [...state.tasks];
     tasks.forEach((item) => {
-        if(item.id === state.taskId) {
+        if(item.id === action.currentId) {
             item.title = action.title
         }
     });
@@ -110,7 +97,7 @@ function handleAddBodyForDescription(
 ): ToDoListStore {
     const tasks = [...state.tasks];
     tasks.forEach((item) => {
-        if(item.id === state.taskId) {
+        if(item.id === action.currentId) {
             item.body = action.body
         }
     });
@@ -142,7 +129,7 @@ function handleChangeFoto(
 ): ToDoListStore {
     const tasks = [...state.tasks];
     tasks.forEach((item) => {
-        if(item.id === state.taskId) {
+        if(item.id === action.currentId) {
             item.pathFoto = action.pathFoto;
         }
     })
@@ -157,7 +144,6 @@ const toDoListReducers = handleActions<ToDoListStore, any>(
         [actionTypes.ADD_TASK]: handlerWrapper(handleAddTask),
         [actionTypes.CHANGE_TEXT]: handlerWrapper(handleChangeText),
         [actionTypes.DELETE_TASK]: handlerWrapper(handleDeleteTask),
-        [actionTypes.SET_ID]: handlerWrapper(handleSetTaskId),
         [actionTypes.CHANGE_TITLE_TASK]: handlerWrapper(handleChangeTitleTask),
         [actionTypes.ADD_BODY_FOR_DESCRIPTION]: handlerWrapper(handleAddBodyForDescription),
         [actionTypes.CHANGE_CHECKED_fLAG]: handlerWrapper(handleChangeCheckedFlag),

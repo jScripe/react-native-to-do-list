@@ -6,33 +6,29 @@ import { Tasks } from "../models";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { toDoListStyles } from "../styles";
 import ImagePicker from "react-native-image-picker";
+import { getCurrentTask } from "../selectors/toDoListSelectors";
 
 
 
 interface DescriptionTaskContainerProps {
-    tasks: Tasks[];
-    taskId: string;
+    task: Tasks;
     navigation: any;
 }
 
 type DescriptionTaskContainerJoinedProps = DescriptionTaskContainerProps & {
-    addTaskInToDoList: (text: string) => any;
-    changeTitleTask: (text: string) => any;
-    addBodyForDescription: (text: string) => any;
-    changeFoto: (uri: any) => any;
+    addTaskInToDoList: (title: string, body: string) => any;
+    changeTitleTask: (text: string, id: string) => any;
+    addBodyForDescription: (text: string, id: string) => any;
+    changeFoto: (uri: any, id: string) => any;
 };
 
 class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedProps> {
     
     private textTitle: string = "";
     private textBody: string = "";
-    private valueTitle: string = this.showTitleById();
-    private valueBody: string = this.showBodyById();
-    private pathFoto: any = this.showFotoById();
-
-    componentWillUpdate() {
-        this.pathFoto = this.showFotoById();
-    }
+    private title: string = this.props.task.title || "";
+    private body: string = this.props.task.body || "";
+    private pathFoto: string = this.props.task.pathFoto || "";
     
     public render() {
         return (
@@ -43,7 +39,7 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
                         this.textTitle = text;
                     }}
                 >
-                {this.valueTitle}</TextInput>
+                {this.title}</TextInput>
 
                 <TextInput
                     style={toDoListStyles.descriptionBody}
@@ -51,16 +47,17 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
                         this.textBody = text;
                     }}
                     multiline
-                >{this.valueBody}</TextInput>
+                >{this.body}</TextInput>
 
-                <View style={{position: "absolute", bottom: 60, width: "100%", height: "50%"}}>
-                    <Image style={{width: "100%", height: "90%"}} source={this.pathFoto}></Image>
+                <View style={{position: "relative", bottom: 10, width: "100%", height: "50%"}}>
+                    <Image style={{width: "100%", height: "90%"}} source={ this.showFoto() }></Image>
                 </View>
                 
                 <TouchableOpacity 
-                    onPress={this.handleTest.bind(this)}
-                    style={{position: "absolute", bottom: 30, right: 10}}>
-                        <Text>Ulala</Text>
+                    onPress={this.handleOpenSourceDialog.bind(this)}
+                    style={{position: "absolute", bottom: 95, right: 10, backgroundColor: "#fff",  borderColor: "#4ab69e", borderRadius: 20, borderWidth: 2 }}
+                >
+                        <Text style={{padding: 5}}>Add Foto</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity onPress={this.handleClickOnButtonSave.bind(this)} style={toDoListStyles.wrapperButtonSave}>
@@ -68,12 +65,13 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
                 </TouchableOpacity>
             </View>
         )
+
     }
 
-    handleTest() {
+    handleOpenSourceDialog() {
         ImagePicker.showImagePicker({}, (response: any) => {
             if (!response.didCancel && !response.error) {
-                this.props.changeFoto(response.uri);
+                this.props.changeFoto(response.uri, this.props.navigation.state.params.currentId);
             } else if (response.error) {
                 console.log(response.error);
             }
@@ -82,73 +80,34 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
 
     handleClickOnButtonSave() {
         if(this.textTitle === "") {
-            this.textTitle = this.showTitleById();
-        }
-        if(this.props.taskId === "addTask") {
-            this.handleAddTaskInToDo(this.textTitle);
+            this.textTitle = this.props.task.title;
         }
         if(this.textBody === "") {
-            this.textBody = this.showBodyById();
+            this.textBody = this.props.task.body;
         }
-        this.handleChangeTitleTask(this.textTitle);
-        this.handleAddBodyForDescription(this.textBody);
+        if(this.props.navigation.state.params.currentId === null) {
+            this.handleAddTaskInToDo(this.textTitle, this.textBody);
+        }
+        this.props.changeTitleTask(this.textTitle, this.props.navigation.state.params.currentId);
+        this.props.addBodyForDescription(this.textBody, this.props.navigation.state.params.currentId);
         this.textTitle = "";
         this.textBody = "";
         this.props.navigation.push("Home");
     }
 
-    handleAddTaskInToDo(text: string) {
-        this.props.addTaskInToDoList(text);
+    handleAddTaskInToDo(title: string, body: string) {
+        this.props.addTaskInToDoList(title, body);
     }
 
-    handleChangeTitleTask(text: string) {
-        this.props.changeTitleTask(text);
+    showFoto() {
+        return this.pathFoto ? {uri: this.pathFoto} : require("../../static/full.png");
     }
 
-    handleAddBodyForDescription(text: string) {
-        this.props.addBodyForDescription(text);
-    }
-
-    showTitleById() {
-        if(this.props.taskId === "addTask") {
-            return "";
-        }
-        const task = this.props.tasks.filter((item) => {
-            return item.id === this.props.taskId;
-        });
-        return task[0].title;
-    }
-
-    showBodyById() {
-        if(this.props.taskId === "addTask") {
-            return "";
-        }
-        const task = this.props.tasks.filter((item) => {
-            return item.id === this.props.taskId;
-        })
-        return task[0].body;
-    }
-
-    showFotoById() {
-        if(this.props.taskId === "addTask") {
-            return require("../../static/full.png");
-        }
-        const task = this.props.tasks.filter((item) => {
-            return item.id === this.props.taskId;
-        })
-        if(task[0].pathFoto === undefined) {
-            return require("../../static/full.png");
-        } else {
-            return {uri: task[0].pathFoto};
-        }
-    }
 }
 
-function mapStateToProps(state: any) {
-    console.log(111111111111111, state);
+function mapStateToProps(state: any, props: any) {
     return {
-        tasks: state.toDoListReducers.tasks,
-        taskId: state.toDoListReducers.taskId,
+        task: getCurrentTask(state, props),
     }
 }
 

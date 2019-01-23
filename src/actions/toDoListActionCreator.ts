@@ -1,9 +1,10 @@
 import actionTypes from "./types/actionTypes";
 
-const addTaskInToDoList = (taskText: string) => {
+const addTaskInToDoList = (taskText: string , bodyText: string = "") => {
     return {
         type: actionTypes.ADD_TASK,
-        title: taskText
+        title: taskText,
+        body: bodyText,
     }
 }
 
@@ -21,24 +22,19 @@ const deleteTaskInToDoList = (id: string) => {
     }
 }
 
-const setCurrentTaskId = (id: string) => {
-    return {
-        type: actionTypes.SET_ID,
-        currentTaskId: id
-    }
-}
-
-const changeTitleTask = (changeText: string) => {
+const changeTitleTask = (changeText: string, id: string) => {
     return {
         type: actionTypes.CHANGE_TITLE_TASK,
-        title: changeText
+        title: changeText,
+        currentId: id,
     }
 }
 
-const addBodyForDescription = (text: string) => {
+const addBodyForDescription = (text: string, id: string) => {
     return {
         type: actionTypes.ADD_BODY_FOR_DESCRIPTION,
-        body: text
+        body: text,
+        currentId: id,
     }
 }
 
@@ -82,10 +78,11 @@ const getInfoForWeather = (api: string, lat: string, lng: string) => {
     }
 }
 
-const changeFoto = (uri: any) => {
+const changeFoto = (uri: any, id: string) => {
     return {
         type: actionTypes.CHANGE_FOTO,
         pathFoto: uri,
+        currentId: id,
     }
 }
 
@@ -95,7 +92,6 @@ export {
     addTaskInToDoList,
     changeTextInTextInput,
     deleteTaskInToDoList,
-    setCurrentTaskId,
     changeTitleTask,
     addBodyForDescription,
     changeCheckedFlag,
