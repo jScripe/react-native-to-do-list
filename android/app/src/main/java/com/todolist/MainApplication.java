@@ -3,6 +3,7 @@ package com.todolist;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.reactlibrary.RNRnMyViewPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
@@ -27,7 +28,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNRnMyViewPackage(),
+          new RNFetchBlobPackage(),
+          new RNRnMyViewPackage(),
           new ImagePickerPackage(),
           new RNFSPackage(),
           new RNGestureHandlerPackage()

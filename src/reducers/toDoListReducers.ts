@@ -4,20 +4,23 @@ import actionTypes from "../actions/types/actionTypes";
 import { actions } from "../actions";
 import { generateId } from "../utils/generateId";
 import { Tasks, InfoWeather } from "../models";
-import { func } from "prop-types";
+import { getUserAvatar } from "../utils/images";
+import _ from "lodash";
 
 interface ToDoListStore {
     tasks: Tasks[]
     text: string;
     selectedValue: string;
-    infoWeather: InfoWeather
+    infoWeather: InfoWeather;
+    pathFoto: string;
 }
 
 const initialState: ToDoListStore = {
     tasks: [],
     text: "",
     selectedValue: "sort",
-    infoWeather: {}
+    infoWeather: {},
+    pathFoto: "string",
 }
 
 function handleAddTask(
@@ -27,7 +30,7 @@ function handleAddTask(
     const id: string = generateId();
     return {
         ...state,
-        tasks: state.tasks.concat([{id: id, title: action.title, checked: false, body: action.body}]),
+        tasks: state.tasks.concat([{id: id, title: action.title, checked: false, body: action.body, pathFoto: action.pathFoto}]),
     }
 }
 
@@ -125,17 +128,29 @@ function handleChangeCheckedFlag(
 
 function handleChangeFoto(
     state: ToDoListStore,
-    action: ReturnType<typeof actions.changeFoto>
+    action: ReturnType<typeof actions.setPhoto>
 ): ToDoListStore {
-    const tasks = [...state.tasks];
-    tasks.forEach((item) => {
-        if(item.id === action.currentId) {
-            item.pathFoto = action.pathFoto;
-        }
-    })
     return {
         ...state,
-        tasks: tasks
+        tasks: _.map(state.tasks, (task: Tasks) => {
+            if(task.id === action.currentId) {
+                return {
+                    ...task,
+                    pathFoto: action.pathFoto
+                }
+            }
+            return task;
+        })
+    }
+}
+
+function handleAddPathFoto(
+    state: ToDoListStore,
+    action: ReturnType<typeof actions.addPathFoto>
+): ToDoListStore {
+    return {
+        ...state,
+        pathFoto: action.pathFoto
     }
 }
 
@@ -150,6 +165,7 @@ const toDoListReducers = handleActions<ToDoListStore, any>(
         [actionTypes.CHANGE_SELECTED_VALUE]: handlerWrapper(handleChangeSelectedValue),
         [actionTypes.ADD_INFO_FOR_WEATHER]: handlerWrapper(handleAddInfoForWeather),
         [actionTypes.CHANGE_FOTO]: handlerWrapper(handleChangeFoto),
+        [actionTypes.ADD_PATH_FOTO]: handlerWrapper(handleAddPathFoto),
     },
     initialState
 )

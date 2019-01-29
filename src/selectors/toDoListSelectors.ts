@@ -6,6 +6,7 @@ const getCurrentId = (state: any, props: any) => props.navigation.state.params.c
 const getCurrentTask = createDeepEqualSelector(
     [getTasks, getCurrentId],
     (tasks, currentId) => {
+        console.log(">>> selector")
         if(currentId === null) {
             return { id: "", title: "", checked: false, body: "" };
         }

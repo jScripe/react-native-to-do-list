@@ -7,19 +7,22 @@ import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { toDoListStyles } from "../styles";
 import ImagePicker from "react-native-image-picker";
 import { getCurrentTask } from "../selectors/toDoListSelectors";
-
+// @ts-ignore
+import { CachedImage } from 'react-native-cached-image';
 
 
 interface DescriptionTaskContainerProps {
     task: Tasks;
     navigation: any;
+    pathFoto: string;
 }
 
 type DescriptionTaskContainerJoinedProps = DescriptionTaskContainerProps & {
     addTaskInToDoList: (title: string, body: string) => any;
     changeTitleTask: (text: string, id: string) => any;
     addBodyForDescription: (text: string, id: string) => any;
-    changeFoto: (uri: any, id: string) => any;
+    changeFoto: (uri: any, id: string, pathFoto: string) => any;
+    addPathFoto: (uri: any) => any;
 };
 
 class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedProps> {
@@ -28,8 +31,7 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
     private textBody: string = "";
     private title: string = this.props.task.title || "";
     private body: string = this.props.task.body || "";
-    private pathFoto: string = this.props.task.pathFoto || "";
-    
+
     public render() {
         return (
             <View style={{flex: 1, justifyContent: "space-between"}}>
@@ -50,7 +52,7 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
                 >{this.body}</TextInput>
 
                 <View style={{position: "relative", bottom: 10, width: "100%", height: "50%"}}>
-                    <Image style={{width: "100%", height: "90%"}} source={ this.showFoto() }></Image>
+                    <CachedImage style={{width: "100%", height: "90%"}} source={ this.showFoto() }></CachedImage>
                 </View>
                 
                 <TouchableOpacity 
@@ -71,7 +73,8 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
     handleOpenSourceDialog() {
         ImagePicker.showImagePicker({}, (response: any) => {
             if (!response.didCancel && !response.error) {
-                this.props.changeFoto(response.uri, this.props.navigation.state.params.currentId);
+                this.props.addPathFoto(response.path);
+                this.props.changeFoto(response.path, this.props.navigation.state.params.currentId, this.props.task.pathFoto);
             } else if (response.error) {
                 console.log(response.error);
             }
@@ -92,7 +95,7 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
         this.props.addBodyForDescription(this.textBody, this.props.navigation.state.params.currentId);
         this.textTitle = "";
         this.textBody = "";
-        this.props.navigation.push("Home");
+        this.props.navigation.replace("Home");
     }
 
     handleAddTaskInToDo(title: string, body: string) {
@@ -100,7 +103,7 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
     }
 
     showFoto() {
-        return this.pathFoto ? {uri: this.pathFoto} : require("../../static/full.png");
+        return this.props.task.pathFoto ? {uri: this.props.task.pathFoto} : require("../../static/full.png");
     }
 
 }

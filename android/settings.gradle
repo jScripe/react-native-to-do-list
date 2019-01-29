@@ -1,4 +1,6 @@
 rootProject.name = 'ToDoList'
+include ':react-native-fetch-blob'
+project(':react-native-fetch-blob').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fetch-blob/android')
 include ':rn-my-view'
 project(':rn-my-view').projectDir = new File(rootProject.projectDir, '../node_modules/rn-my-view/android')
 include ':react-native-gesture-handler'

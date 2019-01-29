@@ -10,6 +10,7 @@ const actionTypes = {
     IS_LOADING: "IS_LOADING",
     INFO_WEATHER_FETCH_DATA: "INFO_WEATHER_FETCH_DATA",
     CHANGE_FOTO : "CHANGE_FOTO",
+    ADD_PATH_FOTO: "ADD_PATH_FOTO",
 };
 
  export default actionTypes;

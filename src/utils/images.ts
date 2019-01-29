@@ -1,15 +1,38 @@
 import RNFS from "react-native-fs";
-import { Platform, ImageURISource } from "react-native";
+import { ImageURISource } from "react-native";
 
-// const APP_IMAGE_FOLDER = `${Platform.select({
-//     ios: RNFS.DocumentDirectoryPath,
-//     android: RNFS.CachesDirectoryPath,
-// })}/Images/`;
+const APP_IMAGE_FOLDER = `${RNFS.CachesDirectoryPath}/Images/`;
 
-const APP_IMAGE_FOLDER = `${RNFS.DocumentDirectoryPath}/Images/`;
-
-const copyImage = (uri: string) => {
-    return RNFS.copyFile(uri, APP_IMAGE_FOLDER);
+const getUserAvatar = (uri: string, pathFoto: string) => {
+    const absolutePathInLibrary: string = `file://${uri}`;
+    const nameFoto: string = getNameFoto(uri);
+    const absolutePathInApp: string = `file:///data/data/com.todolist/cache/Images/${nameFoto}`
+    return RNFS.mkdir(APP_IMAGE_FOLDER)
+        .then(() => RNFS.readdir(APP_IMAGE_FOLDER))
+        .then((files: string[]) => {
+            const oldFileName: string = getNameFoto(pathFoto);
+            files.forEach((file) => {
+                if(file === oldFileName) {
+                    RNFS.unlink(`file:///data/data/com.todolist/cache/Images/${oldFileName}`)
+                }
+            })
+        })
+        .then(() => {RNFS.copyFile(absolutePathInLibrary, absolutePathInApp)
+                        .catch((error) => {
+                            console.log(">>> error copy file", error.message);
+                        })
+                    })
+        .then(() => absolutePathInApp)
+        .catch((error) => {console.log(">>> error mkdir", error.message)});
 };
 
-export { copyImage }
+const getNameFoto = (uri: string) => {
+    if(uri === undefined) {
+        return "";
+    }
+    const arrSubstringsUri = uri.split("/");
+    const nameFoto: string = arrSubstringsUri[arrSubstringsUri.length - 1];
+    return nameFoto;
+} 
+
+export { getUserAvatar, getNameFoto };

@@ -1,10 +1,12 @@
 import actionTypes from "./types/actionTypes";
+import { getUserAvatar, getNameFoto } from "../utils/images";
 
-const addTaskInToDoList = (taskText: string , bodyText: string = "") => {
+const addTaskInToDoList = (taskText: string , bodyText: string = "", pathFoto: string = "") => {
     return {
         type: actionTypes.ADD_TASK,
         title: taskText,
         body: bodyText,
+        pathFoto: pathFoto
     }
 }
 
@@ -78,11 +80,28 @@ const getInfoForWeather = (api: string, lat: string, lng: string) => {
     }
 }
 
-const changeFoto = (uri: any, id: string) => {
+const setPhoto = (uri: any, id: string) => {
     return {
         type: actionTypes.CHANGE_FOTO,
         pathFoto: uri,
         currentId: id,
+    }
+}
+
+const changeFoto = (uri: any, id: string, pathFoto: string) => {
+    return (dispatch: any) => {
+        getUserAvatar(uri, pathFoto)
+            .then((pathFoto) => {
+                console.log(">>> 0", pathFoto);
+                dispatch(setPhoto(pathFoto, id))
+            })
+    }
+}
+
+const addPathFoto = (uri: any) => {
+    return {
+        type: actionTypes.ADD_PATH_FOTO,
+        pathFoto: `file:///data/data/com.todolist/cache/Images/${getNameFoto(uri)}`,
     }
 }
 
@@ -98,5 +117,7 @@ export {
     changeSelectedValue,
     addInfoForWeather,
     getInfoForWeather,
-    changeFoto
+    changeFoto,
+    setPhoto,
+    addPathFoto
 }
