@@ -144,16 +144,6 @@ function handleChangeFoto(
     }
 }
 
-function handleAddPathFoto(
-    state: ToDoListStore,
-    action: ReturnType<typeof actions.addPathFoto>
-): ToDoListStore {
-    return {
-        ...state,
-        pathFoto: action.pathFoto
-    }
-}
-
 const toDoListReducers = handleActions<ToDoListStore, any>(
     {
         [actionTypes.ADD_TASK]: handlerWrapper(handleAddTask),
@@ -165,7 +155,6 @@ const toDoListReducers = handleActions<ToDoListStore, any>(
         [actionTypes.CHANGE_SELECTED_VALUE]: handlerWrapper(handleChangeSelectedValue),
         [actionTypes.ADD_INFO_FOR_WEATHER]: handlerWrapper(handleAddInfoForWeather),
         [actionTypes.CHANGE_FOTO]: handlerWrapper(handleChangeFoto),
-        [actionTypes.ADD_PATH_FOTO]: handlerWrapper(handleAddPathFoto),
     },
     initialState
 )

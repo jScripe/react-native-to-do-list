@@ -98,14 +98,6 @@ const changeFoto = (uri: any, id: string, pathFoto: string) => {
     }
 }
 
-const addPathFoto = (uri: any) => {
-    return {
-        type: actionTypes.ADD_PATH_FOTO,
-        pathFoto: `file:///data/data/com.todolist/cache/Images/${getNameFoto(uri)}`,
-    }
-}
-
-
 
 export {
     addTaskInToDoList,
@@ -119,5 +111,4 @@ export {
     getInfoForWeather,
     changeFoto,
     setPhoto,
-    addPathFoto
 }

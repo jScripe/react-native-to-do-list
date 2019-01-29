@@ -22,7 +22,6 @@ type DescriptionTaskContainerJoinedProps = DescriptionTaskContainerProps & {
     changeTitleTask: (text: string, id: string) => any;
     addBodyForDescription: (text: string, id: string) => any;
     changeFoto: (uri: any, id: string, pathFoto: string) => any;
-    addPathFoto: (uri: any) => any;
 };
 
 class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedProps> {
@@ -50,17 +49,22 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
                     }}
                     multiline
                 >{this.body}</TextInput>
-
-                <View style={{position: "relative", bottom: 10, width: "100%", height: "50%"}}>
-                    <CachedImage style={{width: "100%", height: "90%"}} source={ this.showFoto() }></CachedImage>
-                </View>
                 
-                <TouchableOpacity 
-                    onPress={this.handleOpenSourceDialog.bind(this)}
-                    style={{position: "absolute", bottom: 95, right: 10, backgroundColor: "#fff",  borderColor: "#4ab69e", borderRadius: 20, borderWidth: 2 }}
-                >
-                        <Text style={{padding: 5}}>Add Foto</Text>
-                </TouchableOpacity>
+                {this.props.navigation.state.params.currentId 
+                    ?   <View>
+                            <View style={{position: "relative", bottom: 10, width: "100%", height: "50%"}}>
+                                <CachedImage style={{width: "100%", height: "120%"}} source={ this.showFoto() }></CachedImage>
+                            </View>
+                            
+                            <TouchableOpacity 
+                                onPress={this.handleOpenSourceDialog.bind(this)}
+                                style={{position: "absolute", bottom: 95, right: 10, backgroundColor: "#fff",  borderColor: "#4ab69e", borderRadius: 20, borderWidth: 2 }}
+                            >
+                                    <Text style={{padding: 5}}>Add Foto</Text>
+                            </TouchableOpacity>
+                        </View>
+                    :   null
+                }
                 
                 <TouchableOpacity onPress={this.handleClickOnButtonSave.bind(this)} style={toDoListStyles.wrapperButtonSave}>
                     <View style={toDoListStyles.buttonSave}><Text style={toDoListStyles.textButtonSave}>Save</Text></View>
@@ -73,7 +77,6 @@ class DescriptionTaskContainer extends Component<DescriptionTaskContainerJoinedP
     handleOpenSourceDialog() {
         ImagePicker.showImagePicker({}, (response: any) => {
             if (!response.didCancel && !response.error) {
-                this.props.addPathFoto(response.path);
                 this.props.changeFoto(response.path, this.props.navigation.state.params.currentId, this.props.task.pathFoto);
             } else if (response.error) {
                 console.log(response.error);
